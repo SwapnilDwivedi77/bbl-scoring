@@ -1,0 +1,16 @@
+export const COLORS = {
+PRIMARY : '#212530',
+BG_DARK_2 : '#2B2F3A',
+BG_DARK_3 : '#2A2D38',
+BG_DARK_4 : '#393C47',
+TEXT_1  : '#CDCFD3',
+PURPLE    : '#7553E6',
+LIME      : '#CEE04A',
+ORANGE    : '#FC5E05',
+LIGHT_BLUE : '#2FB3E4',
+YELLOW : '#FFC700',
+DARK_TEXT  :'#8289A3'
+
+
+ 
+}
