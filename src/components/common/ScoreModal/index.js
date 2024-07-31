@@ -1,4 +1,4 @@
-import {View, Text, Modal, TouchableOpacity} from 'react-native';
+import {View, Text, Modal, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
 
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
@@ -482,20 +482,175 @@ const ScoreModal = ({
   };
 
   return (
-  <>
-      {isVisible && <ViewWrapper visible={isVisible} transparent animationType="slide">
+  // <>
+  // <Modal visible={isVisible} transparent animationType="slide" onRequestClose={() => {
+  //   console.log('CLOSING MODAL')
+  //         setIsVisible(!isVisible);
+  //       }}>
         
-          <PopupContent>
-            <TouchableOpacity
-              style={{position: 'absolute', right: 5, top: 5}}
-              onPress={() => setIsVisible(false)}>
-              <FontAwesomeIcon
-                icon={faCircleXmark}
-                color={COLORS.BG_DARK_3}
-                size={20}
-              />
-            </TouchableOpacity>
-            <MatchupCard
+  //         <PopupContent>
+  //           <TouchableOpacity
+  //             style={{position: 'absolute', right: 5, top: 5,zIndex:999}}
+  //             onPress={() => setIsVisible(false)}>
+  //             <FontAwesomeIcon
+  //               icon={faCircleXmark}
+  //               color={COLORS.BG_DARK_3}
+  //               size={25}
+  //             />
+  //           </TouchableOpacity>
+  //           <MatchupCard
+  //             team1={team1}
+  //             team2={team2}
+  //             team1players={team1players}
+  //             team2players={team2players}
+  //           />
+
+  //           {!AddPowerPlayPlayers() ? (
+  //             <Formik
+  //               initialValues={matchScore}
+  //               // validationSchema={FormSchema}
+  //               onSubmit={values => {
+  //                 handleSubmit(values);
+  //               }}>
+  //               {({
+  //                 handleChange,
+  //                 handleBlur,
+  //                 handleSubmit,
+  //                 values,
+  //                 errors,
+  //                 touched,
+  //               }) => (
+  //                 <>
+  //                   <ScoreContainer>
+  //                     <ScoreInput
+  //                       key={'team1Score'}
+  //                       id={'team1Score'}
+  //                       onChangeText={handleChange('team1Score')}
+  //                       keyboardType={'numeric'}
+  //                       value={values.team1Score}
+  //                       width={50}
+  //                       height={50}
+  //                     />
+  //                     <FontAwesomeIcon
+  //                       icon={faTrophy}
+  //                       color={COLORS.YELLOW}
+  //                       size={35}
+  //                     />
+  //                     <ScoreInput
+  //                       key={'team2Score'}
+  //                       id={'team2Score'}
+  //                       keyboardType={'numeric'}
+  //                       onChangeText={handleChange('team2Score')}
+  //                       value={values.team2Score}
+  //                       width={50}
+  //                       height={50}
+  //                     />
+  //                   </ScoreContainer>
+  //                   <ButtonWrapper>
+  //                     <RoundBtn
+  //                       onPress={values => {
+  //                         handleSubmit(values);
+  //                       }}
+  //                       size={40}
+  //                       type="submit"
+  //                       color={COLORS.PURPLE}
+  //                       icon={faCheck}
+  //                       iconColor={COLORS.TEXT_1}
+  //                     />
+  //                   </ButtonWrapper>
+  //                 </>
+  //               )}
+  //             </Formik>
+  //           ) : (
+  //             <>
+  //               <PlayersContainer>
+  //                 <View style={{flex: 0.5, marginLeft: 0}}>
+  //                   {team1playerList.map(({id, name}, index) => {
+  //                     return (
+  //                       <BouncyCheckbox
+  //                         key={index}
+  //                         text={`${name} (${powerPlayMatchCount[id] || 0})`}
+  //                         size={15}
+  //                         fillColor={COLORS.LIME}
+  //                         isChecked={team1SelectedPlayers[index]}
+  //                         disableBuiltInState={true}
+  //                         value={id}
+  //                         textStyle={{
+  //                           textDecorationLine: 'none',
+  //                           color: COLORS.TEXT_1,
+  //                         }}
+  //                         onPress={checked => {
+  //                           let checkList = [...team1SelectedPlayers];
+  //                           checkList[index] = !checkList[index];
+  //                           setTeam1SelectedPlayers(checkList);
+  //                         }}
+  //                       />
+  //                     );
+  //                   })}
+  //                 </View>
+  //                 <View style={{flex: 0.5, marginLeft: 17}}>
+  //                   {team2playerList.map(({id, name}, index) => {
+                      
+  //                     return (
+  //                       <BouncyCheckbox
+  //                       text={`${name} (${powerPlayMatchCount[id] || 0})`}
+  //                         key={id}
+  //                         size={15}
+  //                         fillColor={COLORS.LIME}
+  //                         isChecked={team2SelectedPlayers[index] || false}
+  //                         textStyle={{
+  //                           textDecorationLine: 'none',
+  //                           color: COLORS.TEXT_1,
+  //                         }}
+  //                         disableBuiltInState={true}
+  //                         onPress={checked => {
+  //                           let checkList = [...team2SelectedPlayers];
+  //                           checkList[index] = !checkList[index];
+  //                           setTeam2SelectedPlayers(checkList);
+  //                         }}
+  //                       />
+  //                     );
+  //                   })}
+  //                 </View>
+  //               </PlayersContainer>
+  //               <ButtonWrapper>
+  //                 <RoundBtn
+  //                   onPress={() => {
+  //                     handlePowerPlayPlayersSubmit();
+  //                   }}
+  //                   size={40}
+  //                   type="submit"
+  //                   color={COLORS.PURPLE}
+  //                   icon={faCheck}
+  //                   iconColor={COLORS.TEXT_1}
+  //                 />
+  //               </ButtonWrapper>
+  //             </>
+  //           )}
+  //         </PopupContent>
+  //       <Toast />
+  //     </Modal>
+  //     </>
+
+  <>
+  <Modal 
+    visible={isVisible} 
+    transparent 
+    animationType="slide" 
+  > 
+     <TouchableWithoutFeedback onPress={() => setIsVisible(false)}>
+      <PopupContent>
+        <TouchableOpacity
+          style={{position: 'absolute', right: 5, top: 5,zIndex:999}}
+          onPress={() => setIsVisible(false)}
+        >
+          <FontAwesomeIcon
+            icon={faCircleXmark}
+            color={COLORS.BG_DARK_3}
+            size={25}
+          />
+        </TouchableOpacity>
+        <MatchupCard
               team1={team1}
               team2={team2}
               team1players={team1players}
@@ -517,9 +672,10 @@ const ScoreModal = ({
                   errors,
                   touched,
                 }) => (
+                  <TouchableWithoutFeedback onPress={() => setIsVisible(false)}>
                   <>
                     <ScoreContainer>
-                      <ScoreInput
+                        <ScoreInput
                         key={'team1Score'}
                         id={'team1Score'}
                         onChangeText={handleChange('team1Score')}
@@ -542,6 +698,8 @@ const ScoreModal = ({
                         width={50}
                         height={50}
                       />
+                      
+                     
                     </ScoreContainer>
                     <ButtonWrapper>
                       <RoundBtn
@@ -556,6 +714,7 @@ const ScoreModal = ({
                       />
                     </ButtonWrapper>
                   </>
+                  </TouchableWithoutFeedback>
                 )}
               </Formik>
             ) : (
@@ -624,10 +783,12 @@ const ScoreModal = ({
                 </ButtonWrapper>
               </>
             )}
-          </PopupContent>
-        <Toast />
-      </ViewWrapper>}
-      </>
+      </PopupContent>
+    </TouchableWithoutFeedback>
+    <Toast />
+  </Modal>
+</>
+
   );
 };
 

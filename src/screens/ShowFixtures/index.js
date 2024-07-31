@@ -1,4 +1,4 @@
-import {View, ScrollView, RefreshControl, TouchableWithoutFeedback} from 'react-native';
+import {View, ScrollView, RefreshControl, KeyboardAvoidingView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
 import {useSelector, useDispatch} from 'react-redux';
@@ -28,7 +28,7 @@ const ShowFixtures = ({route, navigation}) => {
   useEffect(() => {
     dispatch(fetchFixturesList(tournamentId))
   }, [])
-  const fixturesList = useSelector(state => state.addedFixtures.list);
+  let fixturesList = useSelector(state => state.addedFixtures.list);
 
   
   
@@ -65,8 +65,9 @@ const ShowFixtures = ({route, navigation}) => {
       {loading && <LoaderScreen />}
       <ScreenHeader navigation={navigation} title={'Fixtures'} />
         {!isEmpty(fixturesList) &&
-        
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex: 1}}> 
         <FlatList
+        contentContainerStyle={{ paddingBottom: 180 }} 
           data={sortFixtureList(fixturesList)}
           renderItem={({item}) => (
            
@@ -75,10 +76,12 @@ const ShowFixtures = ({route, navigation}) => {
               tournamentData={tournamentData}
               savePowerplayPlayers={savePowerplayPlayers}
             />
-           
+       
           )}
           keyExtractor={item => item.id}
         />
+
+</KeyboardAvoidingView>
         }
           
     </BgContainer>

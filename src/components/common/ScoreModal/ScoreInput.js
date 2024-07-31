@@ -1,9 +1,14 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 
 import { ScoreInput, ScoreInputContainer,ErrorText } from './style'
 
 const ScoreInputText = ({ onChangeText, onBlur, value, error, keyboardType, width, height,...rest }) => {
+    
+    const myInput = useRef();
+    const handleOnPress = () => {
+        myInput.current.focus();  // This line keeps the keyboard open.
+      };
     return (
         <ScoreInputContainer>
             <ScoreInput onChangeText={onChangeText}
@@ -12,7 +17,9 @@ const ScoreInputText = ({ onChangeText, onBlur, value, error, keyboardType, widt
                 keyboardType={keyboardType}
                 width={width}
                 height={height}
-                {...rest} />
+                onPress={handleOnPress}
+                ref={myInput}
+                {...rest}  />
 
             {error ? <ErrorText>{error}</ErrorText> : null}
 
